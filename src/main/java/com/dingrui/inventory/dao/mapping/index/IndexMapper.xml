@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dingrui.inventory.dao.mapper.index.IndexMapper">
+    <select id="getXData" resultType="java.lang.String">
+        select DATE_SUB(CURDATE(), INTERVAL a.sequence DAY) as date from sys_datautils a where type = 'week' order by date asc
+    </select>
+</mapper>

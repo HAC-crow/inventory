@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dingrui.inventory.dao.mapper.purchase.PurchaseMapper">
+    <insert id="create" parameterType="com.dingrui.inventory.entity.model.purchase.tb_buyrecord">
+        insert into tb_buyrecord (productName,SellUserName,SellCount,SellPrice,BuyUserName,BuyUserPhoneNumber,CreatedAt)
+        values
+        (#{productName},#{sellUserName},#{sellCount},#{sellPrice},#{buyUserName},#{buyUserPhoneNumber},#{createdAt})
+    </insert>
+    <update id="update" parameterType="com.dingrui.inventory.entity.model.purchase.tb_buyrecord">
+        update tb_buyrecord
+        <trim prefix="set" suffixOverrides=",">
+            <if test="productName!=null">productName=#{productName},</if>
+            <if test="sellUserName!=null">sellUserName=#{sellUserName},</if>
+            <if test="sellPrice!=null">sellPrice=#{sellPrice},</if>
+            <if test="sellCount!=null">sellCount=#{sellCount},</if>
+            <if test="buyUserName!=null">buyUserName=#{buyUserName},</if>
+            <if test="buyUserPhoneNumber!=null">buyUserPhoneNumber=#{buyUserPhoneNumber},</if>
+            <if test="createdAt!=null">createdAt=#{createdAt},</if>
+            updateAt=#{updateAt}
+        </trim>
+        where id = #{id}
+    </update>
+    <delete id="delete">
+        delete from tb_buyrecord where id = #{id}
+    </delete>
+    <select id="getList" resultType="com.dingrui.inventory.entity.model.purchase.tb_buyrecord">
+      select * from tb_buyrecord where 1 = 1 ${searchAll} ORDER BY CreatedAt desc limit #{rowMin},#{limit}
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from tb_buyrecord
+    </select>
+    <select id="getById" resultType="com.dingrui.inventory.entity.model.purchase.tb_buyrecord">
+        select * from tb_buyrecord where id = #{id}
+    </select>
+    <select id="getBuyPur" resultType="java.lang.Double">
+        select f.sumsell from (select DATE_SUB(CURDATE(), INTERVAL a.sequence DAY) as date from sys_datautils a where type = 'week') d left JOIN
+          (select sum(SellPrice) as sumsell,DATE_FORMAT(CreatedAt,'%Y-%m-%d') as date from tb_buyrecord where DATE_FORMAT(CreatedAt,'%Y-%m-%d') >= DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 7 day),'%Y-%m-%d')  group by DATE_FORMAT(CreatedAt,'%Y-%m-%d') order by DATE_FORMAT(CreatedAt,'%Y-%m-%d') desc) f
+          on d.date =  f.date order by d.date asc
+    </select>
+</mapper>

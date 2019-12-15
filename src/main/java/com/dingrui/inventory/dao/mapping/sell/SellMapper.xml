@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dingrui.inventory.dao.mapper.sell.SellMapper">
+    <insert id="create">
+
+    </insert>
+    <update id="update"></update>
+    <delete id="delete"></delete>
+    <select id="getById" resultType="com.dingrui.inventory.entity.model.sell.tb_salerecord"></select>
+    <select id="getList" resultType="com.dingrui.inventory.entity.model.sell.tb_salerecord"></select>
+    <select id="getCount" resultType="java.lang.Integer"></select>
+    <select id="getSellValue" resultType="java.lang.Double"></select>
+</mapper>

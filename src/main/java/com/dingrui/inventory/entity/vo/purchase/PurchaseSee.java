@@ -1,0 +1,19 @@
+package com.dingrui.inventory.entity.vo.purchase;
+
+import com.dingrui.inventory.common.entity.BaseModel;
+import lombok.Data;
+
+import java.math.BigDecimal;
+
+@Data
+public class PurchaseSee {
+    private int id;
+    private String clientId;
+    private String productName;
+    private String sellUserName;
+    private String sellCount;
+    private BigDecimal sellPrice;
+    private String buyUserName;
+    private String buyUserPhoneNumber;
+    private String createdAt;
+}
